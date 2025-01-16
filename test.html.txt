@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Testing MyApp</title>
+</head>
+<body>
+    <h1 align="center">Welcome</h1>
+    <form id="myForm" action="index.php" method="get">
+        First Name: <input type="text" name="firstname"><br>
+        City: <input type="text" name="city"><br>
+        <input type="submit" value="Submit">
+    </form>
+    <p id="result"></p> 
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const form = document.getElementById('myForm');
+            const resultParagraph = document.getElementById('result');
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const firstName = form.firstname.value;
+                const city = form.city.value;
+
+                if (!firstName || !city) {
+                    alert('Prosim vyplnte policka');
+                    return;
+                }
+
+                function countVowelsAndConsonants(str) {
+                    const vowels = 'aeiouAEIOU';
+                    let vowelCount = 0;
+                    let consonantCount = 0;
+
+                    for (let i = 0; i < str.length; i++) {
+                        if (/[a-zA-Z]/.test(str[i])) {
+                            if (vowels.includes(str[i])) {
+                                vowelCount++;
+                            } else {
+                                consonantCount++;
+                            }
+                        }
+                    }
+
+                    return { vowelCount, consonantCount };
+                }
+
+                const firstNameCounts = countVowelsAndConsonants(firstName);
+                const cityCounts = countVowelsAndConsonants(city);
+
+                const result = `Welcome (${firstName}) from (${city}). There are ${firstNameCounts.vowelCount} vowels in your first name and ${firstNameCounts.consonantCount} consonants in your first name and there are ${cityCounts.vowelCount} vowels in your city and ${cityCounts.consonantCount} consonants in your city.`;
+
+                resultParagraph.textContent = result;
+            });
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            background-color: #242424;
+        }
+
+        form {
+            margin: 0 auto;
+            width: 50%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            background-color: rgb(236, 236, 236);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            margin: 20px auto;
+            width: 50%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #result {
+            width: 50%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            background-color: rgb(236, 236, 236);
+        }
+
+        h1 {
+            color: white;
+        }
+    </style>
+</body>
+</html>
